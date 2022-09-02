@@ -1,23 +1,17 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import CreatePostPage from "./CreatePostPage";
+import SignInSide from "./components/routes/signin.routes";
+import { useContext } from "react";
+import { AuthContext } from "./components/context/auth.context";
 
 function App() {
+
+  const {isAuth} = useContext(AuthContext);
+ 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      {isAuth ? <CreatePostPage/> : <SignInSide />}
+      {/* <CreatePostPage/> */}
     </div>
   );
 }
