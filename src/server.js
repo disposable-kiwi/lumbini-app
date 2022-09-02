@@ -16,13 +16,20 @@ const app = express();
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
 
-app.post("/register", (req,res)=>{
+app.post("/register", async (req,res)=>{
     try{
-        
+        const {firstName, lastName, email, password} = req.body;
+        const hash = await bcrypt.hash(password, saltRounds);
+        await db('users').insert({firstName:firstName, lastName:lastName, email:email,password:hash});
+        res.status(200).json('All Good!');
     }catch(error){
         console.log(error);
         res.status(500).send("Oops, something went wrong on our end!");
     }
+});
+
+app.post('/login', (res,req)=>{
+    res.json("login");
 });
 
 const port = process.env.PORT || 2218;
