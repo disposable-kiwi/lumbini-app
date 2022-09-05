@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from "react";
 import CreatePostPage from "./components/CreatePostPage";
-import { Routers, Router } from 'react-router-dom';
+import { Routes, Route, Link, Navigate } from 'react-router-dom';
 import SignInSide from "./components/routes/signin.routes";
 import AllPosts from "./components/routes/AllPosts";
 import { useContext } from "react";
@@ -17,9 +17,13 @@ function App() {
   //     </Routes> */}
 
   return (
-    <Fragment>
-      <SignInSide />
-    </Fragment>
+    <Routes>
+      <Route path="/" element={<Navigate to="/login" />} />
+      <Route path="/login" element={<SignInSide />} />
+      <Route path="/allaffirms" element={<AllPosts/>}/>
+      <Route path="/newaffirm" element={<CreatePostPage/>}/>
+    </Routes>
+
   );
 }
 
