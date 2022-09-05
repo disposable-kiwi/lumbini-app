@@ -1,11 +1,14 @@
 import React from "react";
-import './header.styles.scss';
-
 
 function Header() {
   return (
-    <header>
-      <h1>Lumbini</h1>
+    <header className="navBarUpper">
+      <h1 className="navlogo">Lumbini</h1>
+      <ul className="navItems">
+        <h3>New Affirmation</h3>
+        <h3>All Affirmations</h3>
+        <h3>Energize Me</h3>
+      </ul>
     </header>
   );
 }

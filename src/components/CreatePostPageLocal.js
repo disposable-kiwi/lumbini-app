@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import Header from './components/routes/Header';
-import Footer from "./components/Footer";
-import Note from "./components/Note";
-import CreateArea from "./components/CreateArea";
+import Header from './routes/Header';
+import Footer from "./Footer";
+import Note from "./Note";
+import CreateArea from "./CreateArea";
+import ResponsiveAppBar from "./NavBar";
 
 function CreatePostPage() {
   const [notes, setNotes] = useState([]);

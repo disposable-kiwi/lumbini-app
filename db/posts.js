@@ -9,8 +9,8 @@ function createPost({title,content,authorEmail}){
     return knex("posts").insert(newPost);
 }
 
-function getAllPosts(){
-    return knex("posts").select("*");
+function getAllPosts(email){
+    return knex("posts").where("authorEmail",email).select("*");
 }
 
 function deletePost(id){
