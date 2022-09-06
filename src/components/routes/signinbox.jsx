@@ -10,9 +10,22 @@ import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { Fragment } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Copyright from '../Copyright';
+import { useContext } from 'react';
+import { AuthContext } from '../context/auth.context';
+import { UserContext } from '../context/user.context';
 
 export default function SignInBox({handleClick}){
+
+    let navigate = useNavigate();
+
+    const {isAuth, setAuth} = useContext(AuthContext);
+    const {userEmail, setUserEmail} = useContext(UserContext);
+
+    const goToNewAffirmHandler = ()=>{
+      navigate('/newaffirm');
+    }
 
     const handleLogin = (event) => {
         event.preventDefault();
@@ -32,9 +45,16 @@ export default function SignInBox({handleClick}){
         }).then(res => res.json())
           .then((status) => {
             if (status === "You're logged in!") {
-    
+              console.log(isAuth);
+              setAuth(true);
+              console.log(isAuth);
+              debugger;
+              console.log(userEmail);
+              setUserEmail(data.get('email'));
+              console.log(userEmail);
+              goToNewAffirmHandler();
             } else if (status === "Username and Password do not match.") {
-    
+              alert("This is not a valid login.");
             }
           });
     

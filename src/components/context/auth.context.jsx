@@ -1,8 +1,10 @@
 import { createContext, useState } from "react";
 
 export const AuthContext = createContext({
-    isAuth: false,
-    setAuth:()=>{}
+    isAuth:null,
+    setAuth:()=>{},
+    // switchAuthToTrue:()=>{},
+    // switchAuthToFalse:()=>{}
 });
 
 export const AuthProvider = ({children})=>{
