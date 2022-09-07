@@ -37,6 +37,7 @@ app.post("/register", async (req, res) => {
         console.log(createdUser);
         let token = jwt.sign({ userId: createdUser[0] }, process.env.SECRET, {expiresIn: 604800});
         res.status(200).json('All Good!');
+        res.status(200).json({token:token});
     } catch (error) {
         console.log(error);
         res.status(500).send("Oops, something went wrong on our end!");
