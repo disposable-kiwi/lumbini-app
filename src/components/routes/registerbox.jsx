@@ -40,8 +40,9 @@ export default function RegisterBox({ handleClick }) {
       body: JSON.stringify(newUser)
     }).then(res => res.json())
       .then((status) => {
-        if (status === "All good!") {
-          goToNewAffirmHandler();
+        if (status) {
+          console.log(status);
+          console.log(status.token);
         } else if (status === "Oops, something went wrong on our end!") {
 
         }

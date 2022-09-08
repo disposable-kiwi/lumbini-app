@@ -15,13 +15,14 @@ import Copyright from '../Copyright';
 import { useContext } from 'react';
 import { AuthContext } from '../context/auth.context';
 import { UserContext } from '../context/user.context';
+import jwt_decode from "jwt-decode";
 
 export default function SignInBox({handleClick}){
 
     let navigate = useNavigate();
 
     const {isAuth, setAuth} = useContext(AuthContext);
-    const {userEmail, setUserEmail} = useContext(UserContext);
+    const {userId, setUserId} = useContext(UserContext);
 
     const goToNewAffirmHandler = ()=>{
       navigate('/newaffirm');
@@ -34,7 +35,7 @@ export default function SignInBox({handleClick}){
           email: data.get('email'),
           password: data.get('password'),
         };
-    
+
         fetch("http://localhost:2218/login", {
           method: "POST",
           headers: {
@@ -42,23 +43,44 @@ export default function SignInBox({handleClick}){
             'Accept': 'application/json',
           },
           body: JSON.stringify(logInUser)
-        }).then(res => res.json())
-          .then((status) => {
-            if (status === "You're logged in!") {
-              console.log(isAuth);
-              setAuth(true);
-              console.log(isAuth);
-              debugger;
-              console.log(userEmail);
-              setUserEmail(data.get('email'));
-              console.log(userEmail);
-              goToNewAffirmHandler();
-            } else if (status === "Username and Password do not match.") {
-              alert("This is not a valid login.");
-            }
-          });
+        }).then((res) => res.json())
+        .then((objRes)=>{
+          if(objRes['alert']){
+            alert(objRes['alert']);
+          }else{
+            setAuth(true);
+            setUserId(objRes);
+            console.log(objRes.token);
+            // local storage set jwt token
+            goToNewAffirmHandler();
+          }
+        });
     
-          data.reset();
+        // fetch("http://localhost:2218/login", {
+        //   method: "POST",
+        //   headers: {
+        //     'Content-Type': 'application/json',
+        //     'Accept': 'application/json',
+        //   },
+        //   body: JSON.stringify(logInUser)
+        // }).then(res => res.json())
+        //   .then((status) => {
+
+        //     alert(status);
+        //     if (status === "You're logged in!") {
+        //       console.log(isAuth);
+        //       setAuth(true);
+        //       console.log(isAuth);
+        //       debugger;
+        //       console.log(userEmail);
+        //       setUserEmail(data.get('email'));
+        //       console.log(userEmail);
+        //       goToNewAffirmHandler();
+        //     } else if (status === "Username and Password do not match.") {
+        //       alert("This is not a valid login.");
+        //     }
+        //   });
+    
       };
 
     return(

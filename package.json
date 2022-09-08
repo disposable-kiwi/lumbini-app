@@ -22,6 +22,7 @@
     "express-session-sqlite": "^2.1.1",
     "fs": "^0.0.1-security",
     "jsonwebtoken": "^8.5.1",
+    "jwt-decode": "^3.1.2",
     "knex": "^2.3.0",
     "mongoose": "^6.5.4",
     "njwt": "^1.2.0",

@@ -23,11 +23,6 @@ function AllPosts() {
       });
   }, []);
 
-  function addNote(newNote) {
-    setNotes(prevNotes => {
-      return [...prevNotes, newNote];
-    });
-  }
 
   function deleteNote(id) {
     try {
