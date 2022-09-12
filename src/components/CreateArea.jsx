@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import AddIcon from '@mui/icons-material/Add';
+import CloseFullscreenIcon from '@mui/icons-material/CloseFullscreen';
 import Fab from '@mui/material/Fab';
 import Zoom from '@mui/material/Zoom';
+import months from "../months";
 
 function CreateArea(props) {
   //the state of isExpanded is used to keep track of whether or not the <CreateArea> Component has been expanded to show the title <input>
@@ -29,12 +31,16 @@ function CreateArea(props) {
   }
 
   function submitNote(event) {
-    props.onAdd(note);
-    setNote({
-      title: "",
-      content: ""
-    });
     event.preventDefault();
+    if (!note.title || !note.content) {
+      alert("Please ensure that your log has both a title and content. Thank you!");
+    } else {
+      props.onAdd(note);
+      setNote({
+        title: "",
+        content: ""
+      });
+    }
   }
 
   //this function is called when the <button> element is clicked since it is
@@ -64,13 +70,8 @@ function CreateArea(props) {
           onChange={handleChange}
           value={note.content}
           placeholder="Take a note..."
-          //this ternary operator sets the rows of the <textarea> to 3 when isExpanded is true
-          //which only happens when the <textarea> is clicked on as evidenced by the <textarea>'s onClick attribute
-          //this in effect expands the <textarea> when clicked on by adding rows from "1" to "3"
           rows={isExpanded ? "3" : "1"}
         />
-        {/* only presents the <AddIcon> if the element has been expanded meaning 
-        that the title <textarea> has been clicked into, switching the state of isExpanded to true */}
         <Zoom in={isExpanded ? true : false}>
           <Fab onClick={submitNote}>
             <AddIcon />

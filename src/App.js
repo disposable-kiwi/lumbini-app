@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import CreatePostPage from "./components/CreatePostPage";
 import { Routes, Route, Link, Navigate, useNavigate } from 'react-router-dom';
 import SignInSide from "./components/routes/signin.routes";
@@ -7,59 +7,57 @@ import { useContext } from "react";
 import './App.scss';
 import { AuthContext } from "./components/context/auth.context";
 import { UserContext } from "./components/context/user.context";
-import { constants } from "buffer";
+import Header from "./components/routes/Header";
+// import { constants } from "buffer";
 
 function App() {
 
   let navigate = useNavigate();
 
   const { isAuth, setAuth } = useContext(AuthContext);
-  const { userId, setUserId } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
 
-  useEffect(()=>{
-    fetch('http://localhost:2218/checkToken')
-    .then(res => res.json())
-    .then((status)=>{
-      if(status['alert']){
-        setAuth(false);
-        setUserId({});
-        console.log(status['alert']);
-        navigate("/login");
-      }else{
-        setAuth(true);
-        console.log(status);
-        setUserId({...status});
-      }
-    })
-  },[]);
-
-  // useEffect(()=>{
-  //   try{
-  //     fetch(`http://localhost:2218/auth`)
-  //     .then(res => res.json())
-  //     .then();
-  //   }catch(error){
-  //     alert('Client could not be authenticated');
-  //   }finally{
-  //     console.log('Welcome to Lumbini, lumhomies');
-  //   }
-   
-  // },[]);
-
-  // {/* {isAuth ? <CreatePostPage/> : <SignInSide />} */}
-  //     {/* <Routes>
-  //       <Route path="/" element={<SignInSide />}
-  //     </Routes> */}
+  useEffect(() => {
+    let token = localStorage.getItem("jwt");
+    const checkAuthentication = () => {
+      let headerDetails = {
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        }
+      };
+      fetch(`http://localhost:2218/checkToken`, headerDetails)
+        .then(res => res.json())
+        .then((objRes) => {
+          if (objRes['error']) {
+            alert(objRes['error']);
+          } else {
+            console.log(objRes);
+            setAuth(true);
+            console.log(objRes);
+            setUser(objRes);
+          }
+        });
+    };
+    if (isAuth === false && token) {
+      checkAuthentication();
+    }
+  }, []);
 
   return (
     <Routes>
-      <Route path="/" element={isAuth ? <Navigate to="/newaffirm" /> : <Navigate to="/login" />} />
-      <Route path="/login" element={isAuth ? <Navigate to="/newaffirm" /> : <SignInSide />} />
+      <Route path="/" element={isAuth ? <Navigate to="/new-log" /> : <Navigate to="/login" />} />
+      <Route path="/login" element={isAuth ? <Navigate to="/new-log" /> : <SignInSide />} />
 
-      <Route path="/allaffirms" element={<AllPosts/>}/>
-      <Route path="/newaffirm" element={<CreatePostPage/>}/>
-      {/* <Route path="/allaffirms" element={isAuth? <AllPosts/>:  <Navigate to="/login" />}/>
-      <Route path="/newaffirm" element={isAuth? <CreatePostPage/>:  <Navigate to="/login" /> }/> */}
+      {/* <Route path="/allaffirms" element={<AllPosts/>}/>
+      <Route path="/newaffirm" element={<CreatePostPage/>}/> */}
+      {/* <Route path="/newaffirm" element={<Header />}>
+        <Route index element={isAuth ? <CreatePostPage /> : <Navigate to="/login" />} />
+        <Route path="/allaffirms" element={isAuth ? <AllPosts /> : <Navigate to="/login" />} />
+      </Route> */}
+      <Route path="/all-logs" element={isAuth ? <AllPosts /> : <Navigate to="/login" />} />
+      <Route path="/new-log" element={isAuth ? <CreatePostPage /> : <Navigate to="/login" />} />
     </Routes>
   );
 }

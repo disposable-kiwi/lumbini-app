@@ -11,47 +11,63 @@ import Typography from '@mui/material/Typography';
 import { Fragment } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Copyright from '../Copyright';
+import { AuthContext } from '../context/auth.context';
+import { UserContext } from '../context/user.context';
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 
 export default function RegisterBox({ handleClick }) {
 
+  const { setAuth } = React.useContext(AuthContext);
+  const { setUser } = React.useContext(UserContext);
+
   let navigate = useNavigate();
 
-  const goToNewAffirmHandler = ()=>{
-    navigate('/newaffirm');
+  const goToNewAffirmHandler = () => {
+    navigate('/new-log');
   }
 
   const handleRegister = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const newUser = {
-      firstName: data.get('firstName'),
-      lastName: data.get('lastName'),
-      email: data.get('email'),
-      password: data.get('password'),
-    };
+    console.log(data);
+    console.log(typeof data);
+    console.log(data.keys());
+    console.log(data.get('password'));
+    console.log(data.get('confirmPassword'));
+    if (data.get('password') !== data.get('confirmPassword')) {
+      alert('passwords don\'t match');
+    } else {
+      // const newUser = {
+      //   firstName: data.get('firstName'),
+      //   lastName: data.get('lastName'),
+      //   email: data.get('email'),
+      //   password: data.get('password'),
+      // };
 
-    fetch("http://localhost:2218/register", {
-      method: "POST",
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-      },
-      body: JSON.stringify(newUser)
-    }).then(res => res.json())
-      .then((status) => {
-        if (status) {
-          console.log(status);
-          console.log(status.token);
-        } else if (status === "Oops, something went wrong on our end!") {
-
-        }
-      });
+      // fetch("http://localhost:2218/register", {
+      //   method: "POST",
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //     'Accept': 'application/json',
+      //   },
+      //   body: JSON.stringify(newUser)
+      // }).then(res => res.json())
+      //   .then((objRes) => {
+      //     if (objRes['error']) {
+      //       alert(objRes['error']);
+      //     } else {
+      //       setAuth(true);
+      //       setUser({ ...objRes });
+      //       localStorage.setItem("jwt", objRes.token);
+      //       goToNewAffirmHandler();
+      //     }
+      //   });
+    }
   };
 
   return (
     <Fragment>
-      <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+      <Avatar sx={{ m: 1, bgcolor: '#3CA088' }}>
         <AppRegistrationIcon />
       </Avatar>
       <Typography component="h1" variant="h5">
@@ -60,7 +76,7 @@ export default function RegisterBox({ handleClick }) {
       <Box component="form" noValidate onSubmit={handleRegister} sx={{ mt: 1 }}>
         <TextField
           margin="normal"
-          required
+          required={true}
           fullWidth
           id="firstName"
           label="First Name"
@@ -70,7 +86,7 @@ export default function RegisterBox({ handleClick }) {
         />
         <TextField
           margin="normal"
-          required
+          required={true}
           fullWidth
           id="lastName"
           label="Last Name"
@@ -80,7 +96,7 @@ export default function RegisterBox({ handleClick }) {
         />
         <TextField
           margin="normal"
-          required
+          required={true}
           fullWidth
           id="email"
           label="Email Address"
@@ -90,7 +106,7 @@ export default function RegisterBox({ handleClick }) {
         />
         <TextField
           margin="normal"
-          required
+          required={true}
           fullWidth
           name="password"
           label="Create Password"
@@ -98,15 +114,25 @@ export default function RegisterBox({ handleClick }) {
           id="password"
           autoComplete="current-password"
         />
-        <FormControlLabel
-          control={<Checkbox value="remember" color="primary" />}
-          label="Remember me"
+        <TextField
+          margin="normal"
+          required={true}
+          fullWidth
+          name="confirmPassword"
+          label="Confirm Password"
+          type="password"
+          id="confirmPassword"
+          autoComplete="current-password"
         />
         <Button
           type="submit"
           fullWidth
           variant="contained"
-          sx={{ mt: 3, mb: 2 }}
+          sx={{
+            mt: 3, mb: 2, bgcolor: '#3CA088', '&:hover': {
+              backgroundColor: '#205246'
+            }
+          }}
         >
           Welcome to Lumbini
         </Button>
@@ -117,7 +143,9 @@ export default function RegisterBox({ handleClick }) {
                                 </Link> */}
           </Grid>
           <Grid item>
-            <Link onClick={handleClick} href="#" variant="body2">
+            <Link onClick={handleClick} href="#" variant="body2" sx={{color:"#3CA088", '&:hover': {
+              color: '#205246'
+            }}}>
               {"Have an account? Sign in"}
             </Link>
           </Grid>

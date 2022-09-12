@@ -27,12 +27,12 @@ header {
     text-shadow: 0 0 1px black, 0 0 1px black, 0 0 1px black, 0 0 1px black;
   }
 
-  ul{
+  div{
     float:right;
     text-align: right;
     display: flex;
     margin-right: 0;
-    h3{
+    .nav-items{
       color: #fff;
       margin-top: 8.5px;
       margin-left: 15px;
@@ -42,6 +42,42 @@ header {
       font-weight: 200;
       text-shadow: 0 0 1px black, 0 0 1px black, 0 0 1px black, 0 0 1px black;
     }
+    .sign-out{
+      padding-top:4px;
+    }
+  }
+}
+
+.create-area-container{
+  display:flex;
+  justify-content: space-between;
+  .create-button{
+    float:left;
+    text-align: right;
+    display: flex;
+  }
+}
+
+.greeting{
+  margin: 30px auto;
+}
+
+.all-posts-bar{
+  margin: auto -16px;
+  padding: 16px 32px;
+  display:flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  h1{
+    float:left;
+  }
+  .all-posts-select{
+    margin-top: 8.5px;
+    margin-left: 15px;
+    margin-right: 10px;
+    font-family: 'Edu VIC WA NT Beginner', cursive;
+    font-weight: bolder;
+    font-weight: 200;
   }
 }
 
@@ -68,6 +104,20 @@ footer p {
   width: 240px;
   margin: 16px;
   float: left;
+  h1{
+    height:24px;
+    overflow:hidden;
+  }
+  p{
+    height:56px;
+    overflow: hidden;
+  }
+  small{
+    font-style: italic;
+    color: #c2c2c2;
+    display:block;
+    margin-bottom:5px;
+  }
 }
 .note h1 {
   font-size: 1.1em;

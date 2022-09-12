@@ -7,3 +7,5 @@ sqlize instead of knex
 postgres
 
 pgadmin
+
+fix the signout button and that functionality

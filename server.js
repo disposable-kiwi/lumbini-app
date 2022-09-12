@@ -9,7 +9,6 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const withAuth = require('./middleware');
-const { ConstructionOutlined } = require('@mui/icons-material');
 
 const saltRounds = 10;
 
@@ -43,8 +42,8 @@ app.post("/register", async (req, res) => {
         let token = jwt.sign({ userId: createdUser[0] }, process.env.SECRET, { expiresIn: 604800 });
         // res.status(200).json('All Good!');
         // res.status(200).json({token:token});
-        res.cookie('token', token, { httpOnly: true, maxAge: 60*60*24*30*1000});
-        res.json({token, userId:createdUser[0]});
+        // res.cookie('token', token, { httpOnly: true, maxAge: 60*60*24*30*1000});
+        res.json({token});
     } catch (error) {
         console.log(error);
         res.status(500).send("Oops, something went wrong on our end!");
@@ -68,11 +67,7 @@ app.post('/login', async (req, res) => {
                     expiresIn: 604800
                 });
                 console.log(token);
-                //creating a cookie that has contents that have a 'token' key whose value is set to the token we just created of the user
-                //so the cookie looks like this {'token': contentsOftheTokenGeneratedAbove }
-                res.cookie('token', token, { httpOnly: true, maxAge: 60*60*24*30*1000});
-                //send an Object back that has two things, the token and the userId for the login
-                res.json({token, userId:user.id});
+                res.json({token, userName:user.firstName});
             } else {
                 res.status(401).json({alert:"Username and Password do not match."});
             }
@@ -85,52 +80,48 @@ app.post('/login', async (req, res) => {
     }
 });
 
-app.get('/getcookie', (req,res)=>{
-    //req.cookies accesses the cookie we just stored or that we already have stored
-    //and since, remember, cookies is an Object with a 'token' attribute, if we want to
-    //access the stored token, we'll have to reference that with dot notation
-
-    //the way tokens work is that we have a token saved on the frontend and a token
-    //saved on the backend and we have to check to see if both tokens match before doing
-    //anything or authorizing anyone
-    res.send(req.cookies.token);
+app.get('/checkToken', withAuth, async function(req,res){
+    const dbName = await db('users').where("id", req.userId).select("firstName");
+    res.status(200).json({userId:req.userId, userName:dbName[0].firstName});
 });
 
-app.post('/signout', )
-
-
-app.get('/checkToken', withAuth, function(req,res){
-    res.status(200).json({token:req.cookies.token, userId:req.userId});
-});
-
-app.get('/posts/:id', async (req, res) => {
+app.get('/posts', withAuth, async (req, res) => {
     try {
-        const allPosts = await db('posts').where("user_id", req.params.id).select("*");
+        const allPosts = await db('posts').where("user_id", req.userId).select("*");
+        console.log(allPosts);
         res.status(200).json(allPosts);
     } catch (error) {
-        res.status(500).send(`Oops, something went wrong on our end and posts could not be loaded! It looks like: ${error}`);
+        res.status(500).json({error: `Oops, something went wrong on our end and posts could not be loaded! It looks like: ${error}`});
     }
 });
 
-app.post("/createPost", withAuth,async (req, res) => {
+app.post("/createPost", withAuth, async (req, res) => {
     try {
-        console.log(req.userId)
+        console.log()
+        console.log(req.body);
+        const dateCreated = new Date();
         const newPost = {
             title: req.body.title,
             content: req.body.content,
-            authorEmail: req.body.authorEmail
+            monthCreated: dateCreated.getMonth()+1,
+            dayCreated: dateCreated.getDate(),
+            yearCreated: dateCreated.getFullYear(),
+            timeCreated: dateCreated.getMinutes()>=10 ? `${dateCreated.getHours()}:${dateCreated.getMinutes()}`:`${dateCreated.getHours()}:0${dateCreated.getMinutes()}`,
+            user_id: req.userId
         };
-        await db('posts').insert(newPost);
-        res.status(200).json('You\'ve made a new post!');
+        const posted = await db('posts').insert(newPost);
+        const returnPosted = await db('posts').where("id", posted[0]).select("*");
+        res.status(200).json(returnPosted[0]);
     } catch (error) {
         res.status(500).send(`Oops, something went wrong on our end and your post could not be added! It looks like: ${error}`);
     }
 });
 
-app.post('/delete/:id', async (req, res) => {
+app.post('/delete/', async (req, res) => {
     try {
-        await db('posts').where("id", req.params.id).del();
-        res.status(200).json("Your post was successfully was deleted!").redirect("/all");
+        console.log(req.body.id);
+        await db('posts').del().where("id", req.body.id);
+        res.status(200).json({success:"Your post was successfully was deleted!"});
     } catch (error) {
         res.status(500).send(`Oops, something went wrong on our end and your post was not deleted! It looks like: ${error}`);
     }
