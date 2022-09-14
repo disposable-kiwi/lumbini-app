@@ -27,7 +27,7 @@ function BootHeader() {
             {['md'].map((expand) => (
                 <Navbar key={expand} expand={expand} className="mb-3 navbar-colorset">
                     <Container fluid>
-                        <Navbar.Brand href="#" className="navbar-brand">Lumbini</Navbar.Brand>
+                        <Navbar.Brand href="#" className="navbar-brand"><Link to="/new-log" className="navbar-brand">Lumbini</Link></Navbar.Brand>
                         <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} />
                         <Navbar.Offcanvas
                             id={`offcanvasNavbar-expand-${expand}`}
@@ -41,9 +41,9 @@ function BootHeader() {
                             </Offcanvas.Header>
                             <Offcanvas.Body>
                                 <Nav className="justify-content-end flex-grow-1 pe-3">
-                                    <Nav.Link href="#action2"><Link to="/new-log" className="navbar-item">Write New Log</Link></Nav.Link>
-                                    <Nav.Link href="#action1"><Link to="/all-logs" className="navbar-item">All Logs</Link></Nav.Link>
-                                    <Nav.Link href="#action2" onClick={handleSignOut} className="navbar-item"><Link to="/login" className="navbar-item">Sign Out</Link></Nav.Link>
+                                    <Nav.Link><Link to="/new-log" className="navbar-item">Write New Log</Link></Nav.Link>
+                                    <Nav.Link><Link to="/all-logs" className="navbar-item">All Logs</Link></Nav.Link>
+                                    <Nav.Link onClick={handleSignOut} className="navbar-item"><Link to="/login" className="navbar-item">Sign Out</Link></Nav.Link>
                                 </Nav>
                             </Offcanvas.Body>
                         </Navbar.Offcanvas>

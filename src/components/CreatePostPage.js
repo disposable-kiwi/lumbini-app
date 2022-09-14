@@ -88,9 +88,9 @@ function CreatePostPage() {
     <div>
       <BootHeader />
       {/* <Header /> */}
-      <h5 className="greeting">What's on your mind, {user.userName}?</h5>
+      <h5 className="greeting create-postpage-text">What's on your mind, {user.userName}?</h5>
       <CreateArea onAdd={addNote} />
-      <h4>Recent Logs</h4>
+      <h4 className="create-postpage-text">Recent Logs</h4>
       <div className="all-posts-container">
         {notes.map((noteItem) => {
           return (

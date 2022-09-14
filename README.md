@@ -2,69 +2,64 @@
 
 Lumbini is an app that acts as a personal diary for our users. Had a good day and want to preserve the memory? Had a bad day and want to vent? Want to write down some thoughts so you can look back on them? Then Lumbini is your friend!
 
-## Available Scripts
+[Stack: React.js Frontend, Express.js Backend, SQLite3 Database]
 
-In the project directory, you can run:
+## Personalized Diary
 
-### `npm start`
+You can create your own diary via an account with us! Only you can access your diary as we store our passwords securely with a hashing algorithm (bcrypt) and stored separately on our database servers. There's no trace left behind so nobody can invade your privacy!
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Other users cannot access your diary either.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+You can create new diary logs by inputting your diary title and diary content within this element:
 
-### `npm test`
+<p align="center">
+    <img width=75% src="./public/images/readme_images/createpostarea.png" />
+</p>
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+You also get a personalized greeting to make you feel right at home!
 
-### `npm run build`
+<p align="center">
+    <img width=75% src="./public/images/readme_images/greeting.png" />
+</p>
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+On the "new-log" page, you can see your five most recent logs:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+<p align="center">
+    <img width=75% src="./public/images/readme_images/recentlogs.png" />
+</p>
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+When you create a new log it automatically gets logged to both the "all-logs" page and down below in the "new-log" page within its "Recent Logs" section as shown in the image above.
+## See All Past Posts
 
-### `npm run eject`
+As your entries are saved in our <em>secure</em> database, they will persist upon refreshes and repeated log-ins to your account. Similarly deleted notes will remain deleted and you will be prompted to confirm your deletion upon every attempted delete.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+You can even use our responsive search bar and months filter to find specific posts by searching for the title! (Year filter coming soon!)
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+<p align="center">
+    <img width=75% src="./public/images/readme_images/allposts.png" />
+</p>
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+You hit the "Energize Yourself" button to show a pop up that contains a uniquely new affirmation each time it is clicked.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+<p align="center">
+    <img width=75% src="./public/images/readme_images/energize.png" />
+</p>
 
-## Learn More
+<p align="center">
+    <img width=75% src="./public/images/readme_images/exampleaffirmation.png" />
+</p>
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Continue to feel good about your day, yourself, and your diary!
+## To Summarize
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Sign up today to join the Lumbini Community and make your own diary.
 
-### Code Splitting
+A safe and secure place to store your thoughts!
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Welcome all
 
-### Analyzing the Bundle Size
+<p align="center">
+    <img width=75% src="./public/images/readme_images/homepage.png" />
+</p>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
 
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)

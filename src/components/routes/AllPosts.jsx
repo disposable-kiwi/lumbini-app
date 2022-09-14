@@ -105,7 +105,7 @@ function AllPosts() {
     <div style={{display:"flex",alignItems:"center",justifyContent:"center", flexDirection:"column", minHeight:"100vh"}}>
       <div className="all-posts-bar">
         <AffirmDialog className="affirm-button" />
-        <h5 className="greeting">Let's see what's been on your mind lately, {user.userName}.</h5>
+        <h5 className="greeting all-postspage-text">Let's see what's been on your mind lately, {user.userName}.</h5>
       </div>
       <div className="all-posts-select">
 
