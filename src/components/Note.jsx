@@ -18,7 +18,7 @@ function Note({note, onDelete}) {
 
   return (
     <div className="note">
-      <h1>{title}</h1>
+      <h1 style={{overflow:"hidden"}}>{title}</h1>
       <p style={{overflow:"hidden"}}>{content}</p>
       <small>{months[monthCreated]} {dayCreated}, {yearCreated} at {timeCreated}</small>
       

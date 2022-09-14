@@ -70,7 +70,7 @@ export default function ShowEntireLogBox({title, content}) {
         <BootstrapDialogTitle sx={{width:'600px', wordWrap:'break-word'}} id="customized-dialog-title" onClose={handleClose}>
           {title}
         </BootstrapDialogTitle>
-        <DialogContent sx={{width:'600px', wordWrap:'break-word'}} dividers>
+        <DialogContent sx={{width:'600px', wordWrap:'break-word', whiteSpace:'pre-wrap'}} dividers>
           <Typography gutterBottom>
             {content}
           </Typography>

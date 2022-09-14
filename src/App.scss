@@ -199,7 +199,7 @@ form.create-note textarea {
   outline: none;
   font-size: 1.2em;
   font-family: inherit;
-  resize: none;
+  resize: vertical;
 }
 form.create-note button {
   position: absolute;

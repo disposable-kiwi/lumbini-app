@@ -15,6 +15,17 @@ export default function AffirmDialog() {
     const [open, setOpen] = React.useState(false);
     const [dialog, setDialog] = React.useState('');
 
+    React.useEffect(()=>{
+        const getAffirm = async ()=>{
+            let initialAffirm = await fetch('https://dulce-affirmations-api.herokuapp.com/affirmation')
+            .then(res=>res.json());
+
+            setDialog(initialAffirm[0]['phrase']);
+        };
+
+        getAffirm();
+    },[]);
+
     const handleClickOpen = () => {
         fetch('https://dulce-affirmations-api.herokuapp.com/affirmation')
             .then(res => res.json())

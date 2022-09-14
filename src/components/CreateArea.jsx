@@ -53,7 +53,7 @@ function CreateArea(props) {
 
   return (
     <div>
-      <form className="create-note">
+      <form style={{width:"20rem"}} className="create-note">
         {/* this ternary operator makes it so that the title <input> is only shown/rendered 
         when isExpanded is "true", otherwise nothing happens which is captured in null  */}
         {isExpanded ? (
