@@ -1,6 +1,4 @@
 * {
-  padding: 0;
-  margin: 0;
   box-sizing: border-box;
 }
 html {
@@ -8,43 +6,65 @@ html {
 }
 body {
   background: #EEEEEE;
-  padding: 0 16px;
 }
 
-header {
+// header {
+//   background-color: #A5F1E9;
+//   padding: 16px 32px;
+//   display:flex;
+//   justify-content: space-between;
+//   flex-wrap: wrap;
+//   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+//   min-width: 100vw;
+//   h1{
+//     color: #fff;
+//     font-family: 'Edu VIC WA NT Beginner', cursive;
+//     font-weight: bolder;
+//     font-weight: 200;
+//     text-shadow: 0 0 1px black, 0 0 1px black, 0 0 1px black, 0 0 1px black;
+//   }
+
+//   div{
+//     float:right;
+//     text-align: right;
+//     display: flex;
+//     margin-right: 0;
+//     .nav-items{
+//       color: #fff;
+//       margin-top: 8.5px;
+//       margin-left: 15px;
+//       margin-right: 10px;
+//       font-family: 'Edu VIC WA NT Beginner', cursive;
+//       font-weight: bolder;
+//       font-weight: 200;
+//       text-shadow: 0 0 1px black, 0 0 1px black, 0 0 1px black, 0 0 1px black;
+//     }
+//     .sign-out{
+//       padding-top:4px;
+//     }
+//   }
+// }
+
+.navbar-colorset{
   background-color: #A5F1E9;
-  margin: auto -16px;
-  padding: 16px 32px;
-  display:flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
+  padding: 25px 32px;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
-  h1{
+  .navbar-brand{
     color: #fff;
     font-family: 'Edu VIC WA NT Beginner', cursive;
     font-weight: bolder;
     font-weight: 200;
+    font-size: 35px;
     text-shadow: 0 0 1px black, 0 0 1px black, 0 0 1px black, 0 0 1px black;
   }
-
-  div{
-    float:right;
-    text-align: right;
-    display: flex;
-    margin-right: 0;
-    .nav-items{
-      color: #fff;
-      margin-top: 8.5px;
-      margin-left: 15px;
-      margin-right: 10px;
-      font-family: 'Edu VIC WA NT Beginner', cursive;
-      font-weight: bolder;
-      font-weight: 200;
-      text-shadow: 0 0 1px black, 0 0 1px black, 0 0 1px black, 0 0 1px black;
-    }
-    .sign-out{
-      padding-top:4px;
-    }
+  .navbar-item{
+    color: #fff;
+    font-family: 'Edu VIC WA NT Beginner', cursive;
+    text-decoration: none;
+    font-weight: bolder;
+    font-weight: 200;
+    font-size: 25px;
+    text-shadow: 0 0 1px black, 0 0 1px black, 0 0 1px black, 0 0 1px black;
   }
 }
 
@@ -58,36 +78,47 @@ header {
   }
 }
 
+.affirm-button{
+  display:flex;
+  align-content: right;
+}
+
 .greeting{
   margin: 30px auto;
 }
 
 .all-posts-bar{
-  margin: auto -16px;
+  margin: auto;
   padding: 16px 32px;
   display:flex;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
   flex-wrap: wrap;
+  flex-direction: column-reverse;
   h1{
     float:left;
   }
-  .all-posts-select{
-    margin-top: 8.5px;
-    margin-left: 15px;
-    margin-right: 10px;
-    font-family: 'Edu VIC WA NT Beginner', cursive;
-    font-weight: bolder;
-    font-weight: 200;
-  }
 }
 
+.all-posts-select{
+  display:flex;
+  margin:1rem;
+  justify-content: center;
+  align-items: center;
+  justify-content: center;
+}
+
+.all-posts-container{
+  display:flex;
+  flex-wrap: wrap;
+  align-items: center;
+
+}
 
 footer {
-  position: absolute;
   background-color:#F9DE9F;
   text-align: center;
   bottom: 0;
-  margin: auto -16px;
   width: 100%;
   height: 2.5rem;
 }
@@ -95,6 +126,7 @@ footer {
 footer p {
   font-family: 'Oswald', sans-serif;
   color: white;
+  height: fit-content;
 }
 .note {
   background: #fff;
@@ -103,14 +135,22 @@ footer p {
   padding: 10px;
   width: 240px;
   margin: 16px;
-  float: left;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
+  overflow: hidden;
   h1{
     height:24px;
-    overflow:hidden;
+   
+    // overflow:hidden;
   }
   p{
     height:56px;
-    overflow: hidden;
+    width:240px;
+    word-wrap:normal;
+    overflow: scroll;
+    // overflow:hidden;
   }
   small{
     font-style: italic;
@@ -174,4 +214,9 @@ form.create-note button {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
   cursor: pointer;
   outline: none;
+}
+
+
+*{
+  // border:1px solid red;
 }

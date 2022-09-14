@@ -14,6 +14,7 @@ import Copyright from '../Copyright';
 import { AuthContext } from '../context/auth.context';
 import { UserContext } from '../context/user.context';
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
+import { formFieldValidation } from '../../formFieldValidation';
 
 export default function RegisterBox({ handleClick }) {
 
@@ -29,39 +30,38 @@ export default function RegisterBox({ handleClick }) {
   const handleRegister = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log(data);
-    console.log(typeof data);
-    console.log(data.keys());
-    console.log(data.get('password'));
-    console.log(data.get('confirmPassword'));
-    if (data.get('password') !== data.get('confirmPassword')) {
-      alert('passwords don\'t match');
-    } else {
-      // const newUser = {
-      //   firstName: data.get('firstName'),
-      //   lastName: data.get('lastName'),
-      //   email: data.get('email'),
-      //   password: data.get('password'),
-      // };
-
-      // fetch("http://localhost:2218/register", {
-      //   method: "POST",
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //     'Accept': 'application/json',
-      //   },
-      //   body: JSON.stringify(newUser)
-      // }).then(res => res.json())
-      //   .then((objRes) => {
-      //     if (objRes['error']) {
-      //       alert(objRes['error']);
-      //     } else {
-      //       setAuth(true);
-      //       setUser({ ...objRes });
-      //       localStorage.setItem("jwt", objRes.token);
-      //       goToNewAffirmHandler();
-      //     }
-      //   });
+    if(formFieldValidation(data).validation===false){
+      alert(formFieldValidation(data).msg);
+    }else{
+      if (data.get('password') !== data.get('confirmPassword')) {
+        alert('The passwords do not match. Please confirm your password.');
+      } else {
+        const newUser = {
+          firstName: data.get('firstName'),
+          lastName: data.get('lastName'),
+          email: data.get('email'),
+          password: data.get('password'),
+        };
+  
+        fetch("http://localhost:2218/register", {
+          method: "POST",
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+          },
+          body: JSON.stringify(newUser)
+        }).then(res => res.json())
+          .then((objRes) => {
+            if (objRes['error']) {
+              alert(objRes['error']);
+            } else {
+              setAuth(true);
+              setUser({ ...objRes });
+              localStorage.setItem("jwt", objRes.token);
+              goToNewAffirmHandler();
+            }
+          });
+      }
     }
   };
 
@@ -71,7 +71,7 @@ export default function RegisterBox({ handleClick }) {
         <AppRegistrationIcon />
       </Avatar>
       <Typography component="h1" variant="h5">
-        Join Lumbini Today
+        Start Journaling with Lumbini Today
       </Typography>
       <Box component="form" noValidate onSubmit={handleRegister} sx={{ mt: 1 }}>
         <TextField
@@ -138,9 +138,7 @@ export default function RegisterBox({ handleClick }) {
         </Button>
         <Grid container>
           <Grid item xs>
-            {/* <Link href="#" variant="body2">
-                                    Forgot password?
-                                </Link> */}
+            
           </Grid>
           <Grid item>
             <Link onClick={handleClick} href="#" variant="body2" sx={{color:"#3CA088", '&:hover': {

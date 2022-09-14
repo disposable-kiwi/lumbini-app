@@ -62,12 +62,12 @@ export default function SignInBox({ handleClick }) {
         <LockOutlinedIcon />
       </Avatar>
       <Typography component="h1" variant="h5">
-        Enter Lumbini with an Existing Account
+        Read Your Lumbini Journal
       </Typography>
       <Box component="form" noValidate onSubmit={handleLogin} sx={{ mt: 1 }}>
         <TextField
           margin="normal"
-          required="true"
+          required={true}
           fullWidth
           id="email"
           label="Email Address"
@@ -77,7 +77,7 @@ export default function SignInBox({ handleClick }) {
         />
         <TextField
           margin="normal"
-          required="true"
+          required={true}
           fullWidth
           name="password"
           label="Password"
@@ -99,9 +99,7 @@ export default function SignInBox({ handleClick }) {
         </Button>
         <Grid container>
           <Grid item xs>
-            {/* <Link href="#" variant="body2">
-                    Forgot password?
-                  </Link> */}
+            
           </Grid>
           <Grid item>
             <Link onClick={handleClick} href="#" variant="body2" sx={{color:"#3CA088", '&:hover': {

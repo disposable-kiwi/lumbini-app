@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react";
 import DeleteIcon from '@mui/icons-material/Delete';
+import ShowEntireLogBox from "./showEntireLogBox";
 import { months } from "../months";
 
 function Note({note, onDelete}) {
@@ -18,11 +19,17 @@ function Note({note, onDelete}) {
   return (
     <div className="note">
       <h1>{title}</h1>
-      <p>{content}</p>
+      <p style={{overflow:"hidden"}}>{content}</p>
       <small>{months[monthCreated]} {dayCreated}, {yearCreated} at {timeCreated}</small>
-      <button onClick={handleClick}>
-        <DeleteIcon />
-      </button>
+      
+      <div style={{display:"flex", width:"100%", justifyContent:"flex-end"}}>
+
+        <ShowEntireLogBox title={title} content={content} />
+        <button onClick={handleClick}>
+          <DeleteIcon />
+        </button>
+
+      </div>
     </div>
   );
 }

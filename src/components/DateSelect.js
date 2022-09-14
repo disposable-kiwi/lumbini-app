@@ -16,7 +16,7 @@ export default function DateSelect({monthFilter}) {
   };
 
   return (
-    <div>
+    <>
       <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
         <InputLabel id="demo-simple-select-standard-label">Months</InputLabel>
         <Select
@@ -34,6 +34,6 @@ export default function DateSelect({monthFilter}) {
           })}
         </Select>
       </FormControl>
-    </div>
+    </>
   );
 }

@@ -6,13 +6,14 @@ import CreateArea from "./CreateArea";
 import { UserContext } from "./context/user.context";
 import ResponsiveAppBar from "./NavBar";
 import { AuthContext } from "./context/auth.context";
+import BootHeader from "./routes/BootHeader";
 
 
 function CreatePostPage() {
   const [notes, setNotes] = useState([]);
-  const {user} = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
-  useEffect(()=>{
+  useEffect(() => {
     let token = localStorage.getItem("jwt");
     const checkAuthentication = () => {
       let headerDetails = {
@@ -27,7 +28,7 @@ function CreatePostPage() {
         .then((objRes) => {
           if (objRes['alert']) {
             alert(objRes['alert']);
-          }else{
+          } else {
             const newReversedArray = objRes.slice(-5).reverse();
             console.log(objRes);
             console.log(newReversedArray);
@@ -35,23 +36,23 @@ function CreatePostPage() {
           }
         });
     };
-      checkAuthentication();
-  },[]);
+    checkAuthentication();
+  }, []);
 
   function addNote(newNote) {
-      let token = localStorage.getItem("jwt");
-      let headerDetails = {
-        method:'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
-        body:JSON.stringify(newNote)
-      };
-      fetch("http://localhost:2218/createPost",headerDetails)
-      .then(res=>res.json())
-      .then((postedNote)=>{
+    let token = localStorage.getItem("jwt");
+    let headerDetails = {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify(newNote)
+    };
+    fetch("http://localhost:2218/createPost", headerDetails)
+      .then(res => res.json())
+      .then((postedNote) => {
         setNotes(prevNotes => {
           return [postedNote, ...prevNotes];
         });
@@ -60,45 +61,46 @@ function CreatePostPage() {
 
   function deleteNote(id) {
     let token = localStorage.getItem("jwt");
-    fetch('http://localhost:2218/delete',{
-      method:"POST",
-      headers:{
-        'Content-Type':'application/json',
-        'Accept':'application/json',
+    fetch('http://localhost:2218/delete', {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
         'Authorization': `Bearer ${token}`
       },
-      body:JSON.stringify({id})
-    }).then(res=>res.json())
-    .then((reply)=>{
-      if(reply['success']){
-        setNotes(prevNotes => {
-          return prevNotes.filter((noteItem) => {
-            return noteItem.id !== id;
+      body: JSON.stringify({ id })
+    }).then(res => res.json())
+      .then((reply) => {
+        if (reply['success']) {
+          setNotes(prevNotes => {
+            return prevNotes.filter((noteItem) => {
+              return noteItem.id !== id;
+            });
           });
-        });
-        alert('Deleted successfully!');
-      }else{
-        alert(reply);
-      }
-    });  
+          alert('Deleted successfully!');
+        } else {
+          alert(reply);
+        }
+      });
   }
 
   return (
     <div>
-      <Header />
+      <BootHeader />
+      {/* <Header /> */}
       <h5 className="greeting">What's on your mind, {user.userName}?</h5>
       <CreateArea onAdd={addNote} />
-      <div>
       <h4>Recent Logs</h4>
-      {notes.map((noteItem) => {
-        return (
-          <Note
-            key={noteItem.id}
-            note={noteItem}
-            onDelete={deleteNote}
-          />
-        );
-      })}
+      <div className="all-posts-container">
+        {notes.map((noteItem) => {
+          return (
+            <Note
+              key={noteItem.id}
+              note={noteItem}
+              onDelete={deleteNote}
+            />
+          );
+        })}
       </div>
       <Footer />
     </div>

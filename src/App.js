@@ -7,7 +7,6 @@ import { useContext } from "react";
 import './App.scss';
 import { AuthContext } from "./components/context/auth.context";
 import { UserContext } from "./components/context/user.context";
-import Header from "./components/routes/Header";
 // import { constants } from "buffer";
 
 function App() {
