@@ -1,6 +1,6 @@
-# Getting Started with Create React App
+# Lumbini - Your New Diary, Secure and Responsive
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Lumbini is an app that acts as a personal diary for our users. Had a good day and want to preserve the memory? Had a bad day and want to vent? Want to write down some thoughts so you can look back on them? Then Lumbini is your friend!
 
 ## Available Scripts
 
