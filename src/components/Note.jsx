@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import DeleteIcon from '@mui/icons-material/Delete';
-import ShowEntireLogBox from "./showEntireLogBox";
+import ShowEntireLogBox from "./ShowEntireLogBox";
 import { months } from "../months";
 
 function Note({note, onDelete}) {

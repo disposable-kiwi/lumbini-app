@@ -1,9 +1,12 @@
 require('dotenv').config()
 const express = require('express');
+const session = require('express-session');
 const knex = require('knex');
 const bcrypt = require('bcryptjs');
 const cors = require('cors');
 var jwt = require('jsonwebtoken');
+const path = require('path');
+const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const withAuth = require('./middleware');
 
@@ -21,21 +24,23 @@ const app = express();
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(cookieParser());
 app.use(cors({ origin: true, credentials: true }));
 
 app.post("/register", async (req, res) => {
     try {
         const { firstName, lastName, email, password } = req.body;
         const hash = await bcrypt.hash(password, saltRounds);
-        let createdUser = await db('users').insert({
+        const newUser = {
             firstName: firstName,
             lastName: lastName,
             email: email,
             password: hash
-        });
+        };
+        let createdUser = await db('users').insert({ firstName: firstName, lastName: lastName, email: email, password: hash });
         let token = jwt.sign({ userId: createdUser[0] }, process.env.SECRET, { expiresIn: 604800 });
         let user = await db('users').where("id", createdUser[0]).select("firstName");
-        res.json({ token, userName: user[0].firstName });
+        res.json({ token, userName:user[0].firstName });
     } catch (error) {
         console.log(error);
         res.status(500).send("Oops, something went wrong on our end!");
@@ -46,13 +51,17 @@ app.post('/login', async (req, res) => {
     try {
         const { email, password } = req.body;
         const user = await db('users').first("*").where({ email: email });
+        console.log(user);
         if (user) {
             const validPass = await bcrypt.compare(password, user.password);
+            console.log(validPass);
             if (validPass) {
+                //in here is where you would send a cookie or token for authentication
                 const payload = { userId: user.id };
                 const token = jwt.sign(payload, process.env.SECRET, {
                     expiresIn: 604800
                 });
+                console.log(token);
                 res.json({ token, userName: user.firstName });
             } else {
                 res.status(401).json({ alert: "Username and Password do not match." });
@@ -61,6 +70,7 @@ app.post('/login', async (req, res) => {
             res.status(404).json({ alert: "User does not exist." });
         }
     } catch (error) {
+        console.log(error);
         res.status(500).send({ alert: "Oops, something went wrong on our end!" });
     }
 });
@@ -73,6 +83,7 @@ app.get('/checkToken', withAuth, async function (req, res) {
 app.get('/posts', withAuth, async (req, res) => {
     try {
         const allPosts = await db('posts').where("user_id", req.userId).select("*");
+        console.log(allPosts);
         res.status(200).json(allPosts);
     } catch (error) {
         res.status(500).json({ error: `Oops, something went wrong on our end and posts could not be loaded! It looks like: ${error}` });
@@ -81,6 +92,8 @@ app.get('/posts', withAuth, async (req, res) => {
 
 app.post("/createPost", withAuth, async (req, res) => {
     try {
+        console.log()
+        console.log(req.body);
         const dateCreated = new Date();
         const newPost = {
             title: req.body.title,
@@ -101,6 +114,7 @@ app.post("/createPost", withAuth, async (req, res) => {
 
 app.post('/delete/', async (req, res) => {
     try {
+        console.log(req.body.id);
         await db('posts').del().where("id", req.body.id);
         res.status(200).json({ success: "Your post was successfully was deleted!" });
     } catch (error) {

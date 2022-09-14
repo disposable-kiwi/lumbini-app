@@ -1,13 +1,10 @@
 import React, { useState, useEffect, useContext } from "react";
-import Header from "./Header";
 import Footer from "../Footer";
 import Note from "../Note";
-import { AuthContext } from "../context/auth.context";
 import { UserContext } from "../context/user.context";
 import DateSelect from "../DateSelect";
 import { months } from "../../months";
 import AffirmDialog from "../AffirmDialog";
-import { color } from "@mui/system";
 import { TextField } from "@mui/material";
 import BootHeader from "./BootHeader";
 

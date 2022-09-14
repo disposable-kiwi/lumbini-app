@@ -2,8 +2,6 @@ import * as React from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -15,7 +13,6 @@ import Copyright from '../Copyright';
 import { useContext } from 'react';
 import { AuthContext } from '../context/auth.context';
 import { UserContext } from '../context/user.context';
-import jwt_decode from "jwt-decode";
 
 export default function SignInBox({ handleClick }) {
 

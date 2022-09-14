@@ -10,7 +10,7 @@ import SignInBox from './signinbox';
 
 const theme = createTheme();
 
-export default function SignInSide() {
+export default function LoginPage() {
 
   const [showRegister, setShowRegister] = useState(false);
 

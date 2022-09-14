@@ -8,43 +8,6 @@ body {
   background: #EEEEEE;
 }
 
-// header {
-//   background-color: #A5F1E9;
-//   padding: 16px 32px;
-//   display:flex;
-//   justify-content: space-between;
-//   flex-wrap: wrap;
-//   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
-//   min-width: 100vw;
-//   h1{
-//     color: #fff;
-//     font-family: 'Edu VIC WA NT Beginner', cursive;
-//     font-weight: bolder;
-//     font-weight: 200;
-//     text-shadow: 0 0 1px black, 0 0 1px black, 0 0 1px black, 0 0 1px black;
-//   }
-
-//   div{
-//     float:right;
-//     text-align: right;
-//     display: flex;
-//     margin-right: 0;
-//     .nav-items{
-//       color: #fff;
-//       margin-top: 8.5px;
-//       margin-left: 15px;
-//       margin-right: 10px;
-//       font-family: 'Edu VIC WA NT Beginner', cursive;
-//       font-weight: bolder;
-//       font-weight: 200;
-//       text-shadow: 0 0 1px black, 0 0 1px black, 0 0 1px black, 0 0 1px black;
-//     }
-//     .sign-out{
-//       padding-top:4px;
-//     }
-//   }
-// }
-
 .navbar-colorset{
   background-color: #A5F1E9;
   padding: 25px 32px;
@@ -67,6 +30,20 @@ body {
     font-size: 25px;
     text-shadow: 0 0 1px black, 0 0 1px black, 0 0 1px black, 0 0 1px black;
   }
+}
+
+#offcanvasNavbar-expand-md{
+  background-color:#A5F1E9;
+  font-family: 'Josefin Sans', sans-serif;
+  #offcanvasNavbarLabel-expand-md{
+    color: #fff;
+    font-family: 'Edu VIC WA NT Beginner', cursive;
+    font-weight: bolder;
+    font-size: 30px;
+    text-decoration: none;
+    text-shadow: 0 0 1px black, 0 0 1px black, 0 0 1px black, 0 0 1px black;
+  }
+  
 }
 
 .create-area-container{
@@ -144,15 +121,12 @@ footer p {
   overflow: hidden;
   h1{
     height:24px;
-   
-    // overflow:hidden;
   }
   p{
     height:56px;
     width:240px;
     word-wrap:normal;
     overflow: scroll;
-    // overflow:hidden;
   }
   small{
     font-style: italic;

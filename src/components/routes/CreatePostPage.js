@@ -1,12 +1,9 @@
 import React, { useEffect, useState, useContext } from "react";
-import Header from './routes/Header';
-import Footer from "./Footer";
-import Note from "./Note";
-import CreateArea from "./CreateArea";
-import { UserContext } from "./context/user.context";
-import ResponsiveAppBar from "./NavBar";
-import { AuthContext } from "./context/auth.context";
-import BootHeader from "./routes/BootHeader";
+import Footer from "../Footer";
+import Note from "../Note";
+import CreateArea from "../CreateArea";
+import { UserContext } from "../context/user.context";
+import BootHeader from "./BootHeader";
 
 
 function CreatePostPage() {

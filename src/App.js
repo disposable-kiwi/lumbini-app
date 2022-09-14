@@ -1,20 +1,17 @@
-import React, { useEffect, useState } from "react";
-import CreatePostPage from "./components/CreatePostPage";
-import { Routes, Route, Link, Navigate, useNavigate } from 'react-router-dom';
-import SignInSide from "./components/routes/signin.routes";
+import React, { useEffect } from "react";
+import CreatePostPage from "./components/routes/CreatePostPage";
+import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
+import LoginPage from "./components/routes/LoginPage";
 import AllPosts from "./components/routes/AllPosts";
 import { useContext } from "react";
 import './App.scss';
 import { AuthContext } from "./components/context/auth.context";
 import { UserContext } from "./components/context/user.context";
-// import { constants } from "buffer";
 
 function App() {
 
-  let navigate = useNavigate();
-
   const { isAuth, setAuth } = useContext(AuthContext);
-  const { user, setUser } = useContext(UserContext);
+  const { setUser } = useContext(UserContext);
 
   useEffect(() => {
     let token = localStorage.getItem("jwt");
@@ -47,14 +44,8 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={isAuth ? <Navigate to="/new-log" /> : <Navigate to="/login" />} />
-      <Route path="/login" element={isAuth ? <Navigate to="/new-log" /> : <SignInSide />} />
+      <Route path="/login" element={isAuth ? <Navigate to="/new-log" /> : <LoginPage />} />
 
-      {/* <Route path="/allaffirms" element={<AllPosts/>}/>
-      <Route path="/newaffirm" element={<CreatePostPage/>}/> */}
-      {/* <Route path="/newaffirm" element={<Header />}>
-        <Route index element={isAuth ? <CreatePostPage /> : <Navigate to="/login" />} />
-        <Route path="/allaffirms" element={isAuth ? <AllPosts /> : <Navigate to="/login" />} />
-      </Route> */}
       <Route path="/all-logs" element={isAuth ? <AllPosts /> : <Navigate to="/login" />} />
       <Route path="/new-log" element={isAuth ? <CreatePostPage /> : <Navigate to="/login" />} />
     </Routes>
